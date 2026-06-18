@@ -3,25 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امین ارجمند | داشبورد پروژه‌ها</title>
-    <link rel="stylesheet" href="style.css">
+    <title>امین ارجمند | داشبورد حرفه‌ای پروژه‌ها</title>
+    <style>
+        /* تعریف متغیرهای تم تاریک و روشن با الهام از استایل مدرن Vercel */
+        :root {
+            --bg: #050505;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(10, 10, 10, 0.5);
+            --glass-blur: blur(16px);
+            --text-main: #f5f5f7;
+            --text-muted: #888888;
+            --accent: #0070f3;
+            --accent-glow: rgba(0, 112, 243, 0.15);
+            --card-hover: rgba(255, 255, 255, 0.02);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .light-mode {
+            --bg: #f5f5f7;
+            --border: rgba(0, 0, 0, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-blur: blur(16px);
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --accent: #0070f3;
+            --accent-glow: rgba(0, 112, 243, 0.08);
+            --card-hover: rgba(0, 0, 0, 0.02);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        /* استایل‌های پایه و ریست قالب */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.3s ease, 
+                        color 0.3s ease, 
+                        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* پس‌زمینه متحرک اوربیتال با ۲ هاله نوری */
+        .bg-glow-1, .bg-glow-2 {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(120px);
+            opacity: 0.5;
+        }
+
+        .bg-glow-1 {
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            left: 10%;
+            animation: float1 15s infinite alternate ease-in-out;
+        }
+
+        .bg-glow-2 {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, rgba(0,0,0,0) 70%);
+            bottom: -200px;
+            right: 10%;
+            animation: float2 18s infinite alternate ease-in-out;
+        }
+
+        @keyframes float1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 50px) scale(1.2); }
+        }
+
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1.2); }
+            100% { transform: translate(-80px, -60px) scale(0.9); }
+        }
+
+        /* افکت شیشه‌ای (Glassmorphism) */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        /* هدر فوق مدرن Vercel */
+        .navbar {
+            border-bottom: 1px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo-circle {
+            width: 28px;
+            height: 28px;
+            background: var(--text-main);
+            color: var(--bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .slash {
+            color: var(--text-muted);
+            margin: 0 6px;
+            font-weight: 300;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* دکمه‌های کنترلر هدر */
+        .btn-nav-control {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-nav-control:hover {
+            background: var(--text-main);
+            color: var(--bg);
+            border-color: var(--text-main);
+        }
+
+        /* کانتینر اصلی صفحه */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 32px auto 64px auto;
+            padding: 0 24px;
+        }
+
+        /* بخش پروفایل جدید و بسیار مجلل پیش از فیلترها */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 32px;
+            padding: 32px;
+            margin-bottom: 32px;
+            align-items: center;
+        }
+
+        .profile-avatar-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            box-shadow: 0 0 20px rgba(0,112,243,0.15);
+            position: relative;
+        }
+
+        .profile-avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-name-role {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .profile-role {
+            font-size: 16px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* راه‌های ارتباطی با آیکون‌های SVG */
+        .profile-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            text-decoration: none;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .contact-pill:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+            background: var(--card-hover);
+            transform: translateY(-1px);
+        }
+
+        .contact-pill svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* کارت‌های آماری */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* نوار کنترل شیشه‌ای */
+        .controls-bar {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        #search-input {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            padding: 12px 18px 12px 40px;
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        #search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag:hover, .tag.active {
+            border-color: var(--text-main);
+            color: var(--text-main);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* گرید نمایش پروژه‌ها */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        /* کارت‌های شیک شبیه‌سازی شده پروژه */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+            min-height: 380px;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            background: var(--card-hover);
+        }
+
+        .proj-thumb {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 100%);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            border: 1px solid var(--border);
+            box-shadow: inset 0 0 12px rgba(255,255,255,0.05);
+        }
+
+        .proj-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .proj-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+        }
+
+        .proj-title:hover {
+            color: var(--accent);
+        }
+
+        .proj-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            height: 64px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .proj-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .proj-lang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .lang-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .proj-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .proj-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .proj-link:hover {
+            color: var(--text-main);
+        }
+
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* بهینه‌سازی ریسپانسیو تلفن همراه */
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 24px;
+            }
+            .profile-avatar-container {
+                margin: 0 auto;
+            }
+            .profile-contacts {
+                justify-content: center;
+            }
+            .nav-container {
+                padding: 12px 16px;
+            }
+            .dashboard-container {
+                padding: 0 16px;
+                margin-top: 20px;
+            }
+        }
+
+        /* کلاس‌های کمکی جهت تنظیم جهت نوشتار دوزبانه */
+        [dir="ltr"] {
+            text-align: left;
+        }
+        [dir="rtl"] {
+            text-align: right;
+        }
+    </style>
 </head>
 <body class="dark-mode">
-    <div class="bg-glow"></div>
+    <!-- افکت‌های بک‌گراند نئونی شناور -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
 
+    <!-- هدر مدرن ورسل با دکمه تغییر زبان و تم -->
     <header class="navbar">
         <div class="nav-container">
             <div class="nav-left">
-                <div class="avatar">A</div>
+                <div class="nav-logo-circle">A</div>
                 <span class="logo-text">aminarjmand<span class="slash">/</span>projects</span>
             </div>
             <div class="nav-right">
-                <button id="lang-toggle" class="btn-nav">EN</button>
+                <!-- سوئیچ تم رنگی (تاریک/روشن) -->
+                <button id="theme-toggle" class="btn-nav-control" title="تغییر تم">
+                    <svg id="theme-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <span id="theme-text" data-en="Light Mode" data-fa="حالت روشن">حالت روشن</span>
+                </button>
+                <!-- دکمه زبان -->
+                <button id="lang-toggle" class="btn-nav-control">EN</button>
             </div>
         </div>
     </header>
 
     <main class="dashboard-container">
+        <!-- سکشن جدید: پروفایل اختصاصی و راه‌های ارتباطی با افکت گلس -->
+        <section class="profile-section glass">
+            <div class="profile-avatar-container">
+                <img id="profile-avatar" src="https://github.com/sibche2013.png" alt="امین ارجمند">
+            </div>
+            <div class="profile-details">
+                <div class="profile-name-role">
+                    <h1 class="profile-name" id="profile-name" data-en="Amin Arjmand" data-fa="امین ارجمند">امین ارجمند</h1>
+                    <span class="profile-role" id="profile-role" data-en="Full Stack Developer" data-fa="توسعه‌دهنده فول استک">توسعه‌دهنده فول استک</span>
+                </div>
+                
+                <!-- لیست اطلاعات تماسی و اجتماعی کاملا دوزبانه -->
+                <div class="profile-contacts">
+                    <!-- وبسایت اصلی -->
+                    <a href="https://aminarjmand.com" target="_blank" class="contact-pill">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/></svg>
+                        <span data-en="Website" data-fa="وب‌سایت">وب‌سایت</span>
+                    </a>
+                    <!-- ایمیل -->
+                    <a href="mailto:info@aminarjmand.com" class="contact-pill">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span data-en="Email" data-fa="ایمیل">info@aminarjmand.com</span>
+                    </a>
+                    <!-- تلفن تماس -->
+                    <a href="tel:+989123456789" class="contact-pill">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span data-en="Phone" data-fa="تلفن">+98 912 345 6789</span>
+                    </a>
+                    <!-- تلگرام -->
+                    <a href="https://t.me/amin_arjmand" target="_blank" class="contact-pill">
+                        <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.28 7.68-6.92c.34-.31-.07-.48-.52-.18L7.55 13.3 3.4 12c-.9-.28-.92-.9.19-1.34l16.2-6.24c.75-.28 1.4.17 1.15 1.3L18.15 18c-.2 1.05-.82 1.3-1.7.8l-4.3-3.17-2.07 2c-.23.23-.42.42-.85.42z"/></svg>
+                        <span data-en="Telegram" data-fa="تلگرام">@amin_arjmand</span>
+                    </a>
+                    <!-- گیت‌هاب -->
+                    <a href="https://github.com/sibche2013" target="_blank" class="contact-pill">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.646.64.699 1.026 1.592 1.026 2.683 0 3.842-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.478-10-10-10z"/></svg>
+                        <span data-en="GitHub" data-fa="گیت‌هاب">sibche2013</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش آمار کلی مخازن کاربر گیت هاب -->
         <section class="stats-grid" id="stats-container">
             <div class="stat-card glass">
                 <span class="stat-title" data-en="Total Repos" data-fa="کل مخازن">کل مخازن</span>
@@ -37,18 +589,298 @@
             </div>
         </section>
 
+        <!-- ابزارهای فیلتر و جستجو -->
         <section class="controls-bar glass">
-            <input type="text" id="search-input" placeholder="جستجو در پروژه‌ها..." data-en="Search projects..." data-fa="جستجو در پروژه‌ها...">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="جستجو در پروژه‌ها..." data-en="Search projects..." data-fa="جستجو در پروژه‌ها...">
+            </div>
             <div class="filter-tags" id="filter-tags">
                 <button class="tag active" data-lang="all" data-en="All" data-fa="همه">همه</button>
             </div>
         </section>
 
+        <!-- گرید اصلی پروژه‌ها -->
         <section class="projects-grid" id="projects-grid">
             <div class="loading" data-en="Loading Projects..." data-fa="در حال بارگذاری پروژه‌ها...">در حال بارگذاری پروژه‌ها...</div>
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        const GITHUB_USERNAME = "sibche2013"; // نام کاربری تصحیح شده برای آدرس‌دهی دقیق
+        const CACHE_KEY = "github_dashboard_data_v2";
+        const CACHE_TIME = 15 * 60 * 1000; // کش کردن هوشمند اطلاعات به مدت ۱۵ دقیقه
+
+        let currentLang = "fa";
+        let isDarkMode = true;
+        let allProjects = [];
+        let allLanguages = new Set();
+
+        // اختصاص هوشمند رنگ به هر زبان جهت همخوانی با استانداردهای گیت‌هاب
+        const langColors = {
+            JavaScript: "#f1e05a", HTML: "#e34c26", CSS: "#563d7c",
+            TypeScript: "#3178c6", Python: "#3572A5", Vue: "#41b883", 
+            React: "#61dafb", C: "#555555", "C++": "#f34b7d", PHP: "#4f5d95"
+        };
+
+        // نمادهای تماتیک تصادفی برای پروژه‌ها به عنوان تصویر بندانگشتی در صورت نبود کاستوم آیکون
+        const thumbnails = ["🚀", "⚡", "🔮", "🌌", "🦾", "🎨", "🛸", "🧠", "🔥"];
+
+        document.addEventListener("DOMContentLoaded", init);
+
+        async function init() {
+            setupLanguageToggle();
+            setupThemeToggle();
+            setupSearchAndFilters();
+            await loadData();
+        }
+
+        // پیاده‌سازی سوئیچ دو حالته دارک/لایت مود
+        function setupThemeToggle() {
+            const toggleBtn = document.getElementById("theme-toggle");
+            const themeText = document.getElementById("theme-text");
+            const themeIcon = document.getElementById("theme-icon");
+
+            toggleBtn.addEventListener("click", () => {
+                isDarkMode = !isDarkMode;
+                if (isDarkMode) {
+                    document.body.classList.remove("light-mode");
+                    document.body.classList.add("dark-mode");
+                    themeText.setAttribute("data-fa", "حالت روشن");
+                    themeText.setAttribute("data-en", "Light Mode");
+                    themeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    `;
+                } else {
+                    document.body.classList.remove("dark-mode");
+                    document.body.classList.add("light-mode");
+                    themeText.setAttribute("data-fa", "حالت تاریک");
+                    themeText.setAttribute("data-en", "Dark Mode");
+                    themeIcon.innerHTML = `
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    `;
+                }
+                themeText.textContent = themeText.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        // عملکرد سوئیچ دو زبانه (فارسی و انگلیسی)
+        function setupLanguageToggle() {
+            const btn = document.getElementById("lang-toggle");
+            btn.addEventListener("click", () => {
+                currentLang = currentLang === "fa" ? "en" : "fa";
+                btn.textContent = currentLang === "fa" ? "EN" : "FA";
+                
+                document.documentElement.dir = currentLang === "fa" ? "rtl" : "ltr";
+                document.documentElement.lang = currentLang;
+
+                // به‌روزرسانی تمام ویژگی‌های متنی دارای شناسه زبان
+                document.querySelectorAll("[data-en]").forEach(el => {
+                    el.textContent = el.getAttribute(`data-${currentLang}`);
+                });
+                
+                const searchInput = document.getElementById("search-input");
+                searchInput.placeholder = searchInput.getAttribute(`data-${currentLang}`);
+
+                renderStats();
+                renderProjects(allProjects);
+                renderFilters();
+            });
+        }
+
+        // لودینگ داده با کش محلی از GitHub API
+        async function loadData() {
+            const cached = localStorage.getItem(CACHE_KEY);
+            const cachedTime = localStorage.getItem(CACHE_KEY + "_time");
+
+            if (cached && cachedTime && (Date.now() - cachedTime < CACHE_TIME)) {
+                allProjects = JSON.parse(cached);
+                processProjects();
+            } else {
+                try {
+                    const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+                    const repos = await res.json();
+                    
+                    allProjects = await Promise.all(repos.map(async (repo) => {
+                        // دریافت زبان‌ها برای دسته‌بندی و تعیین قوی‌ترین زبان استفاده شده
+                        let languages = {};
+                        try {
+                            const langRes = await fetch(repo.languages_url);
+                            languages = await langRes.json();
+                        } catch(e) {}
+
+                        // الگوریتم خودکار دسته‌بندی بر اساس بیشترین درصد زبان‌های بکار رفته
+                        let topLang = "Unknown";
+                        let maxVotes = 0;
+                        Object.keys(languages).forEach(lang => {
+                            if (languages[lang] > maxVotes) {
+                                maxVotes = languages[lang];
+                                topLang = lang;
+                            }
+                        });
+
+                        // بررسی فایل project.json در روت مخزن جهت واکشی اطلاعات شخصی سازی شده
+                        let customConfig = {};
+                        try {
+                            const configRes = await fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${repo.name}/${repo.default_branch}/project.json`);
+                            if (configRes.ok) customConfig = await configRes.json();
+                        } catch (e) {}
+
+                        // بازسازی هوشمند لینک‌ها از دامین sibche2013 به آدرس شخصی demo.aminarjmand.com
+                        let customLiveUrl = null;
+                        if (repo.has_pages) {
+                            customLiveUrl = `https://demo.aminarjmand.com/${repo.name}`;
+                        } else if (repo.homepage) {
+                            customLiveUrl = repo.homepage;
+                        }
+
+                        // در صورتی که دامین‌های قدیمی گیت‌هاب پیج وجود داشته باشند تبدیل به آدرس ساب‌دامین جدید می‌شود
+                        if (customLiveUrl && customLiveUrl.includes("sibche2013.github.io")) {
+                            customLiveUrl = customLiveUrl.replace("sibche2013.github.io", "demo.aminarjmand.com");
+                        }
+
+                        return {
+                            name: repo.name,
+                            description: customConfig.description || repo.description || "",
+                            stars: repo.stargazers_count,
+                            topLanguage: topLang,
+                            html_url: repo.html_url,
+                            homepage: customLiveUrl,
+                            emoji: customConfig.emoji || thumbnails[Math.floor(Math.random() * thumbnails.length)]
+                        };
+                    }));
+
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(allProjects));
+                    localStorage.setItem(CACHE_KEY + "_time", Date.now().toString());
+                    processProjects();
+
+                } catch (error) {
+                    document.getElementById("projects-grid").innerHTML = `
+                        <div class="loading" data-en="Failed to communicate with GitHub API." data-fa="خطا در برقراری ارتباط با گیت‌هاب">خطا در برقراری ارتباط با گیت‌هاب</div>
+                    `;
+                }
+            }
+        }
+
+        function processProjects() {
+            allLanguages.clear();
+            allProjects.forEach(p => {
+                if (p.topLanguage && p.topLanguage !== "Unknown") allLanguages.add(p.topLanguage);
+            });
+            renderStats();
+            renderFilters();
+            renderProjects(allProjects);
+        }
+
+        // نمایش و آپدیت آمار کلی به صورت داینامیک و دوزبانه
+        function renderStats() {
+            document.getElementById("repo-count").textContent = allProjects.length;
+            document.getElementById("star-count").textContent = allProjects.reduce((acc, curr) => acc + curr.stars, 0);
+            
+            const counts = {};
+            allProjects.forEach(p => { if(p.topLanguage !== "Unknown") counts[p.topLanguage] = (counts[p.topLanguage] || 0) + 1; });
+            const top = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, "-");
+            document.getElementById("top-lang").textContent = top;
+        }
+
+        // ساخت داینامیک تب‌های زبان‌ها به عنوان فیلتر طبق متادیتای دریافتی
+        function renderFilters() {
+            const filterContainer = document.getElementById("filter-tags");
+            const allBtn = filterContainer.querySelector('[data-lang="all"]');
+            filterContainer.innerHTML = '';
+            filterContainer.appendChild(allBtn);
+
+            allLanguages.forEach(lang => {
+                const btn = document.createElement("button");
+                btn.className = "tag";
+                btn.setAttribute("data-lang", lang);
+                btn.textContent = lang;
+                btn.addEventListener("click", () => filterByLanguage(lang, btn));
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        function filterByLanguage(lang, btnElement) {
+            document.querySelectorAll(".tag").forEach(b => b.classList.remove("active"));
+            btnElement.classList.add("active");
+            
+            if (lang === "all") {
+                renderProjects(allProjects);
+            } else {
+                const filtered = allProjects.filter(p => p.topLanguage === lang);
+                renderProjects(filtered);
+            }
+        }
+
+        function setupSearchAndFilters() {
+            const search = document.getElementById("search-input");
+            search.addEventListener("input", (e) => {
+                const query = e.target.value.toLowerCase();
+                const filtered = allProjects.filter(p => p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+                renderProjects(filtered);
+            });
+            
+            document.querySelector('[data-lang="all"]').addEventListener("click", function() {
+                filterByLanguage("all", this);
+            });
+        }
+
+        // رندر و ساخت کارت پروژه‌ها بر اساس لیست دریافتی با دو دکمه کدهای مخزن و نسخه لایو
+        function renderProjects(projects) {
+            const grid = document.getElementById("projects-grid");
+            grid.innerHTML = "";
+
+            if (projects.length === 0) {
+                grid.innerHTML = `<div class="loading">${currentLang === 'fa' ? 'پروژه‌ای پیدا نشد.' : 'No projects found.'}</div>`;
+                return;
+            }
+
+            projects.forEach(proj => {
+                const card = document.createElement("div");
+                card.className = "project-card glass";
+
+                const color = langColors[proj.topLanguage] || "#888";
+                
+                // در صورتی که دکمه لایو فعال باشد نشان داده می‌شود
+                const liveLinkHtml = proj.homepage 
+                    ? `<a href="${proj.homepage}" target="_blank" class="proj-link">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        <span>Live</span>
+                       </a>` 
+                    : '';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="proj-thumb">${proj.emoji}</div>
+                        <div class="proj-header">
+                            <a href="${proj.html_url}" target="_blank" class="proj-title">${proj.name}</a>
+                        </div>
+                        <p class="proj-desc">${proj.description || (currentLang === 'fa' ? 'توضیحاتی برای این پروژه ثبت نشده است.' : 'No description available.')}</p>
+                    </div>
+                    <div class="proj-footer">
+                        <div class="proj-lang">
+                            <span class="lang-dot" style="background-color: ${color}"></span>
+                            <span>${proj.topLanguage}</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="${proj.html_url}" target="_blank" class="proj-link">
+                                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                <span>Code</span>
+                            </a>
+                            ${liveLinkHtml}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
 </body>
 </html>
