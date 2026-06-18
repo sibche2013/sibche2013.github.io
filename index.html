@@ -648,8 +648,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: var(--glass-bg);
-    border: 1px solid var(--border);
 }
 
 .stats-section-title {
@@ -681,19 +679,19 @@
 .stat-image {
     border-radius: 8px;
     border: 1px solid var(--border);
-    background: #0d1117; /* رنگ تیره هماهنگ با تم تصاویر گیت‌هاب برای لایت‌مد و دارک‌مد */
+    background: var(--stats-img-bg);
     height: auto;
     object-fit: initial;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.4s ease;
 }
 
 .stat-image:hover {
     transform: scale(1.01);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent);
 }
 
 .stat-image.half-width {
-    flex: 1 1 340px; /* در صفحات کوچک زیر هم می‌روند و در دسکتاپ کنار هم */
+    flex: 1 1 340px;
     max-height: 195px;
     width: 100%;
 }
@@ -814,20 +812,16 @@
     <h3 class="stats-section-title" data-en="📊 GitHub Activity Stats" data-fa="📊 آمار فعالیت گیت‌هاب">📊 آمار فعالیت گیت‌هاب</h3>
     <div class="stats-images-container">
         <div class="stats-images-row-top">
-            <img src="https://github-readme-stats.vercel.app/api?username=sibche2013&show_icons=true&theme=vue-dark&locale=en" alt="Amin's GitHub Stats" class="stat-image half-width" />
-            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sibche2013&layout=compact&theme=vue-dark&locale=en" alt="Top Langs" class="stat-image half-width" />
+            <!-- پیش‌فرض لایت‌مد: با تم vue آدرس‌دهی شده‌اند -->
+            <img id="github-stats-card" src="[https://github-readme-stats.vercel.app/api?username=sibche2013&show_icons=true&theme=vue&locale=en](https://github-readme-stats.vercel.app/api?username=sibche2013&show_icons=true&theme=vue&locale=en)" alt="Amin's GitHub Stats" class="stat-image half-width" />
+            <img id="github-langs-card" src="[https://github-readme-stats.vercel.app/api/top-langs/?username=sibche2013&layout=compact&theme=vue&locale=en](https://github-readme-stats.vercel.app/api/top-langs/?username=sibche2013&layout=compact&theme=vue&locale=en)" alt="Top Langs" class="stat-image half-width" />
         </div>
         <div class="stats-images-row-bottom">
-            <img src="https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=vue-dark" alt="GitHub Streak" class="stat-image full-width" />
+            <img id="github-streak-card" src="[https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=vue](https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=vue)" alt="GitHub Streak" class="stat-image full-width" />
         </div>
     </div>
+</section>
     
-</section>
-        <section class="github-visual-stats glass">
-            <div class="stats-images-container">
-     <img src="https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=vue-dark" alt="GitHub Streak" width="97%" />
-    </div>
-</section>
         
 
         <section class="controls-bar glass">
@@ -872,40 +866,52 @@
         }
 
         function setupThemeToggle() {
-            const toggleBtn = document.getElementById("theme-toggle");
-            const themeText = document.getElementById("theme-text");
-            const themeIcon = document.getElementById("theme-icon");
+    const toggleBtn = document.getElementById("theme-toggle");
+    const themeText = document.getElementById("theme-text");
+    const themeIcon = document.getElementById("theme-icon");
 
-            toggleBtn.addEventListener("click", () => {
-                isDarkMode = !isDarkMode;
-                if (isDarkMode) {
-                    document.body.classList.remove("light-mode");
-                    document.body.classList.add("dark-mode");
-                    themeText.setAttribute("data-fa", "حالت روشن");
-                    themeText.setAttribute("data-en", "Light Mode");
-                    themeIcon.innerHTML = `
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    `;
-                } else {
-                    document.body.classList.remove("dark-mode");
-                    document.body.classList.add("light-mode");
-                    themeText.setAttribute("data-fa", "حالت تاریک");
-                    themeText.setAttribute("data-en", "Dark Mode");
-                    themeIcon.innerHTML = `
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    `;
-                }
-                themeText.textContent = themeText.getAttribute(`data-${currentLang}`);
-            });
+    toggleBtn.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+            document.body.classList.remove("light-mode");
+            document.body.classList.add("dark-mode");
+            themeText.setAttribute("data-fa", "حالت روشن");
+            themeText.setAttribute("data-en", "Light Mode");
+            themeIcon.innerHTML = `
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            `;
+        } else {
+            document.body.classList.remove("dark-mode");
+            document.body.classList.add("light-mode");
+            themeText.setAttribute("data-fa", "حالت تاریک");
+            themeText.setAttribute("data-en", "Dark Mode");
+            themeIcon.innerHTML = `
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            `;
         }
+        themeText.textContent = themeText.getAttribute(`data-${currentLang}`);
+        updateGitHubStatsTheme(); // فراخوانی تغییر پوسته تصاویر
+    });
+}
+        function updateGitHubStatsTheme() {
+    const statsCard = document.getElementById("github-stats-card");
+    const langsCard = document.getElementById("github-langs-card");
+    const streakCard = document.getElementById("github-streak-card");
+
+    const currentTheme = isDarkMode ? "vue-dark" : "vue";
+
+    if (statsCard) statsCard.src = `https://github-readme-stats.vercel.app/api?username=sibche2013&show_icons=true&theme=${currentTheme}&locale=en`;
+    if (langsCard) langsCard.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=sibche2013&layout=compact&theme=${currentTheme}&locale=en`;
+    if (streakCard) streakCard.src = `https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=${currentTheme}`;
+}
 
         function setupLanguageToggle() {
             const btn = document.getElementById("lang-toggle");
