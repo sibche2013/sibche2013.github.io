@@ -3,431 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amin Arjmand - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
-
-        :root {
-            --bg: #0a0a0a;
-            --card: rgba(255, 255, 255, 0.06);
-            --text: #e0e0e0;
-            --accent: #00d4ff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        .background {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(circle at 50% 30%, rgba(0, 212, 255, 0.12) 0%, transparent 60%);
-            overflow: hidden;
-        }
-        .background::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('https://source.unsplash.com/random/1920x1080/?cosmic,nebula') center/cover;
-            opacity: 0.18;
-            animation: bgShift 180s linear infinite;
-        }
-        @keyframes bgShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-
-        .glass {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 20px;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1.1rem 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo { font-size: 1.85rem; font-weight: 700; letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
-
-        .nav-links a {
-            margin-left: 2.2rem;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .search-box {
-            padding: 0.65rem 1.3rem;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 300px;
-        }
-        .search-box input {
-            background: none;
-            border: none;
-            outline: none;
-            color: white;
-            width: 100%;
-        }
-
-        .lang-toggle {
-            padding: 8px 14px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .hero {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 5%;
-        }
-
-        .hero h1 {
-            font-size: 4.8rem;
-            background: linear-gradient(90deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin: 3rem 0;
-        }
-
-        .filter-btn {
-            padding: 10px 22px;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.2rem;
-            padding: 0 5%;
-        }
-
-        .project-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .project-card:hover {
-            transform: translateY(-18px) scale(1.04);
-            box-shadow: 0 35px 70px rgba(0, 212, 255, 0.25);
-        }
-
-        .project-img {
-            height: 230px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            border-radius: 18px 18px 0 0;
-        }
-
-        .project-body {
-            padding: 1.8rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-links {
-            margin-top: auto;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        .btn-repo {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-        .btn-pages {
-            background: var(--accent);
-            color: #000;
-        }
-
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            opacity: 0.6;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .projects-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3.4rem; }
-        }
-    </style>
+    <title>امین ارجمند | داشبورد پروژه‌ها</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="background"></div>
+<body class="dark-mode">
+    <div class="bg-glow"></div>
 
-    <header class="glass">
-        <div class="logo">amin<span>.</span></div>
-        <div class="nav-links">
-            <a href="#projects">پروژه‌ها</a>
-            <a href="https://github.com/aminarjmand" target="_blank">گیت‌هاب</a>
-        </div>
-        <div class="header-right">
-            <div class="search-box glass">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="جستجوی پروژه...">
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="avatar">A</div>
+                <span class="logo-text">aminarjmand<span class="slash">/</span>projects</span>
             </div>
-            <button class="lang-toggle" id="langToggle">EN</button>
+            <div class="nav-right">
+                <button id="lang-toggle" class="btn-nav">EN</button>
+            </div>
         </div>
     </header>
 
-    <section class="hero">
-        <div>
-            <h1 id="heroTitle">امین ارجمند</h1>
-            <p id="heroDesc">توسعه‌دهنده فول‌استک | عاشق تجربه‌های دیجیتال مدرن</p>
-            
-            <div class="stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-top:3rem;max-width:700px;margin-left:auto;margin-right:auto;">
-                <!-- Stats injected by JS -->
+    <main class="dashboard-container">
+        <section class="stats-grid" id="stats-container">
+            <div class="stat-card glass">
+                <span class="stat-title" data-en="Total Repos" data-fa="کل مخازن">کل مخازن</span>
+                <span class="stat-value" id="repo-count">0</span>
             </div>
-        </div>
-    </section>
+            <div class="stat-card glass">
+                <span class="stat-title" data-en="Total Stars" data-fa="مجموع ستارگان">مجموع ستارگان</span>
+                <span class="stat-value" id="star-count">0</span>
+            </div>
+            <div class="stat-card glass">
+                <span class="stat-title" data-en="Top Language" data-fa="زبان اصلی">زبان اصلی</span>
+                <span class="stat-value" id="top-lang">-</span>
+            </div>
+        </section>
 
-    <section class="section" id="projects">
-        <h2 class="section-title" id="projectsTitle" style="text-align:center;font-size:2.8rem;margin-bottom:1rem;">پروژه‌های منتخب</h2>
-        
-        <div class="filters" id="filters"></div>
+        <section class="controls-bar glass">
+            <input type="text" id="search-input" placeholder="جستجو در پروژه‌ها..." data-en="Search projects..." data-fa="جستجو در پروژه‌ها...">
+            <div class="filter-tags" id="filter-tags">
+                <button class="tag active" data-lang="all" data-en="All" data-fa="همه">همه</button>
+            </div>
+        </section>
 
-        <div class="projects-grid" id="projectsGrid"></div>
-    </section>
+        <section class="projects-grid" id="projects-grid">
+            <div class="loading" data-en="Loading Projects..." data-fa="در حال بارگذاری پروژه‌ها...">در حال بارگذاری پروژه‌ها...</div>
+        </section>
+    </main>
 
-    <footer>
-        <p id="footerText">ساخته شده با ❤️ و JavaScript خالص • ۲۰۲۶</p>
-    </footer>
-
-    <script>
-        const USERNAME = "sibche2013"; // تغییر بده
-
-        let allRepos = [];
-        let currentLang = 'fa'; // 'fa' or 'en'
-
-        const translations = {
-            fa: {
-                heroTitle: "امین ارجمند",
-                heroDesc: "توسعه‌دهنده فول‌استک | عاشق تجربه‌های دیجیتال مدرن",
-                projectsTitle: "پروژه‌های منتخب",
-                searchPlaceholder: "جستجوی پروژه...",
-                all: "همه",
-                footer: "ساخته شده با ❤️ و JavaScript خالص • ۲۰۲۶"
-            },
-            en: {
-                heroTitle: "Amin Arjmand",
-                heroDesc: "Full-Stack Developer | Passionate about Modern Digital Experiences",
-                projectsTitle: "Featured Projects",
-                searchPlaceholder: "Search projects...",
-                all: "All",
-                footer: "Built with ❤️ and pure JavaScript • 2026"
-            }
-        };
-
-        async function fetchGitHubData() {
-            try {
-                const cached = localStorage.getItem('github_repos_advanced');
-                if (cached) {
-                    allRepos = JSON.parse(cached);
-                    renderFilters();
-                    renderProjects(allRepos);
-                    updateStats();
-                    return;
-                }
-
-                const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=100`);
-                const repos = await res.json();
-                
-                allRepos = repos.filter(r => !r.fork).map(r => ({
-                    ...r,
-                    displayName: r.name.replace(/-/g, ' ')
-                }));
-
-                localStorage.setItem('github_repos_advanced', JSON.stringify(allRepos));
-                renderFilters();
-                renderProjects(allRepos);
-                updateStats();
-            } catch (e) {
-                console.error(e);
-            }
-        }
-
-        function getLanguageColor(lang) {
-            const colors = { "JavaScript":"#f1e05a","TypeScript":"#3178c6","Python":"#3572A5","HTML":"#e34c26","CSS":"#563d7c","Go":"#00ADD8","Vue":"#41b883","React":"#61dafb" };
-            return colors[lang] || "#8b8b8b";
-        }
-
-        function renderFilters() {
-            const langCount = {};
-            allRepos.forEach(repo => {
-                if (repo.language) langCount[repo.language] = (langCount[repo.language] || 0) + 1;
-            });
-
-            const sortedLangs = Object.entries(langCount)
-                .sort((a,b) => b[1] - a[1])
-                .slice(0, 6);
-
-            const container = document.getElementById('filters');
-            container.innerHTML = `<button class="filter-btn active" data-filter="all">${translations[currentLang].all}</button>`;
-
-            sortedLangs.forEach(([lang]) => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn';
-                btn.dataset.filter = lang.toLowerCase();
-                btn.textContent = lang;
-                container.appendChild(btn);
-            });
-
-            // Add click listeners
-            container.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    filterProjects();
-                });
-            });
-        }
-
-        function updateStats() {
-            // You can expand this
-            console.log(`${allRepos.length} repositories loaded`);
-        }
-
-        function renderProjects(repos) {
-            const container = document.getElementById('projectsGrid');
-            container.innerHTML = '';
-
-            repos.forEach(repo => {
-                const hasPages = repo.homepage && repo.homepage.trim() !== '';
-
-                const card = document.createElement('div');
-                card.className = 'project-card glass';
-                card.innerHTML = `
-                    <div class="project-img" style="background-image: url('https://opengraph.githubassets.com/1/${USERNAME}/${repo.name}')"></div>
-                    <div class="project-body">
-                        <h3 style="margin-bottom:12px;">${repo.displayName}</h3>
-                        <p style="opacity:0.85;flex:1;">${repo.description || (currentLang==='fa'?'بدون توضیحات':'No description')}</p>
-                        
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin:15px 0;">
-                            ${repo.language ? `
-                            <div style="display:flex;align-items:center;gap:8px;">
-                                <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${getLanguageColor(repo.language)}"></span>
-                                <span>${repo.language}</span>
-                            </div>` : ''}
-                            <div><i class="fas fa-star"></i> ${repo.stargazers_count}</div>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="${repo.html_url}" target="_blank" class="btn btn-repo">
-                                <i class="fab fa-github"></i> Repository
-                            </a>
-                            ${hasPages ? `
-                            <a href="${repo.homepage}" target="_blank" class="btn btn-pages">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>` : ''}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterProjects() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-
-            const filtered = allRepos.filter(repo => {
-                const matchesSearch = repo.name.toLowerCase().includes(searchTerm) ||
-                                    (repo.description && repo.description.toLowerCase().includes(searchTerm));
-                
-                const matchesFilter = activeFilter === 'all' || 
-                    (repo.language && repo.language.toLowerCase() === activeFilter);
-                
-                return matchesSearch && matchesFilter;
-            });
-
-            renderProjects(filtered);
-        }
-
-        // Language Toggle
-        document.getElementById('langToggle').addEventListener('click', () => {
-            currentLang = currentLang === 'fa' ? 'en' : 'fa';
-            document.getElementById('langToggle').textContent = currentLang === 'fa' ? 'EN' : 'FA';
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
-
-            // Update texts
-            document.getElementById('heroTitle').textContent = translations[currentLang].heroTitle;
-            document.getElementById('heroDesc').textContent = translations[currentLang].heroDesc;
-            document.getElementById('projectsTitle').textContent = translations[currentLang].projectsTitle;
-            document.getElementById('searchInput').placeholder = translations[currentLang].searchPlaceholder;
-            document.getElementById('footerText').textContent = translations[currentLang].footer;
-
-            renderFilters();
-            filterProjects();
-        });
-
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchGitHubData();
-
-            document.getElementById('searchInput').addEventListener('input', filterProjects);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
