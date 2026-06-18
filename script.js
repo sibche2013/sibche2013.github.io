@@ -1,4 +1,4 @@
-const GITHUB_USERNAME = "YOUR_GITHUB_USERNAME"; // نام کاربری خود را اینجا بنویسید
+const GITHUB_USERNAME = "sibche2013"; // نام کاربری خود را اینجا بنویسید
 const CACHE_KEY = "github_dashboard_data";
 const CACHE_TIME = 30 * 60 * 1000; // ۳۰ دقیقه کش
 
