@@ -637,6 +637,79 @@
                 font-size: 28px;
             }
         }
+
+        <!-- ========================================== -->
+<!-- استایل‌های زیر را به بخش <style> یا انتهای تگ مربوط به CSS اضافه کنید -->
+<!-- ========================================== -->
+.github-visual-stats {
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--border);
+}
+
+.stats-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.stats-images-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.stats-images-row-top {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.stats-images-row-bottom {
+    width: 100%;
+}
+
+.stat-image {
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0d1117; /* رنگ تیره هماهنگ با تم تصاویر گیت‌هاب برای لایت‌مد و دارک‌مد */
+    height: auto;
+    object-fit: initial;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-image:hover {
+    transform: scale(1.01);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.stat-image.half-width {
+    flex: 1 1 340px; /* در صفحات کوچک زیر هم می‌روند و در دسکتاپ کنار هم */
+    max-height: 195px;
+    width: 100%;
+}
+
+.stat-image.full-width {
+    width: 100%;
+    max-height: 195px;
+}
+
+/* راست‌چین و چپ‌چین بر اساس زبان فعال */
+[dir="ltr"] .stats-section-title {
+    text-align: left;
+}
+[dir="rtl"] .stats-section-title {
+    text-align: right;
+}
     </style>
 </head>
 <body class="light-mode">
@@ -733,6 +806,23 @@
                 </div>
             </div>
         </section>
+<!-- ========================================== -->
+<!-- این بخش را دقیقاً قبل از تگ <section class="controls-bar ..."> قرار دهید -->
+<!-- ========================================== -->
+
+<section class="github-visual-stats glass">
+    <h3 class="stats-section-title" data-en="📊 GitHub Activity Stats" data-fa="📊 آمار فعالیت گیت‌هاب">📊 آمار فعالیت گیت‌هاب</h3>
+    <div class="stats-images-container">
+        <div class="stats-images-row-top">
+            <img src="https://github-readme-stats.vercel.app/api?username=sibche2013&show_icons=true&theme=vue-dark&locale=en" alt="Amin's GitHub Stats" class="stat-image half-width" />
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=sibche2013&layout=compact&theme=vue-dark&locale=en" alt="Top Langs" class="stat-image half-width" />
+        </div>
+        <div class="stats-images-row-bottom">
+            <img src="https://github-readme-streak-stats.herokuapp.com/?user=sibche2013&theme=vue-dark" alt="GitHub Streak" class="stat-image full-width" />
+        </div>
+    </div>
+</section>
+
 
         <section class="controls-bar glass">
             <div class="search-wrapper">
