@@ -1,12 +1,12 @@
 # 🌌 Professional Projects Dashboard | داشبورد حرفه‌ای و هوشمند مدیریت پروژه‌ها
 
 <p align="center">
-  <a target="_blank" href="[https://demo.aminarjmand.com/](https://demo.aminarjmand.com/)">
-    <img src="[https://img.shields.io/badge/Live_Demo-](https://img.shields.io/badge/Live_Demo-)⚡_Launch_Dashboard-blue?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Demo" />
+  <a target="_blank" href="https://demo.aminarjmand.com/">
+    <img src="https://img.shields.io/badge/Live_Demo-⚡_Launch_Dashboard-blue?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Demo" />
   </a>
   &nbsp;&nbsp;
-  <a target="_blank" href="[https://demo.aminarjmand.com/](https://demo.aminarjmand.com/)">
-    <img src="[https://img.shields.io/badge/GitHub_Pages-Active-success?style=for-the-badge&logo=github](https://img.shields.io/badge/GitHub_Pages-Active-success?style=for-the-badge&logo=github)" alt="GitHub Pages" />
+  <a target="_blank" href="https://demo.aminarjmand.com/">
+    <img src="https://img.shields.io/badge/GitHub_Pages-Active-success?style=for-the-badge&logo=github" alt="GitHub Pages" />
   </a>
 </p>
 
