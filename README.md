@@ -36,12 +36,12 @@ Experience the live dashboard here:
 
 ### 🛠️ Customizing Repositories via `project.json`
 One of the core features of this dashboard is the ability to override default GitHub text with custom emojis and specific project descriptions. To do this, simply create a `project.json` file in the root directory of any of your repositories using the following format:
-
+```json
 {
   "emoji": "🧠",
   "description": "Your custom repository description in Persian or English to be displayed on the project card."
 }
-
+```
 The dashboard automatically detects this file on runtime and seamlessly swaps out the default GitHub metadata.
 
 ### 🚀 Installation & Deployment
@@ -76,12 +76,12 @@ const GITHUB_USERNAME = "sibche2013"; // Replace with your GitHub username
 
 ### 🛠️ نحوه شخصی‌سازی هر پروژه با `project.json`
 یکی از جذاب‌ترین ویژگی‌های این داشبورد، امکان تنظیم دلخواه ایموجی (به عنوان تصویر شاخص) و توضیحات اختصاصی برای تک‌تک پروژه‌ها است. برای این کار کافیست در روت (Root) هر کدام از مخازن خود، فایلی به نام `project.json` بسازید و فرمت زیر را داخل آن قرار دهید:
-
+```json
 {
   "emoji": "🧠",
   "description": "توضیحات دلخواه شما به زبان فارسی یا انگلیسی که در کارت پروژه نمایش داده می‌شود."
 }
-
+```
 داشبورد به طور خودکار در هنگام لود، وجود این فایل را بررسی کرده و اطلاعات آن را جایگزین مقادیر پیش‌فرض گیت‌هاب می‌کند.
 
 ### 🚀 راه‌اندازی و اجرا (Installation & Deployment)
