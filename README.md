@@ -1,5 +1,3 @@
-  ![pf visito](https://komarev.com/ghpvc/?username=sibche2013&color=blueviolet)
-
 # 🌌 Professional Projects Dashboard | داشبورد حرفه‌ای و هوشمند مدیریت پروژه‌ها
 
 <p align="center">
